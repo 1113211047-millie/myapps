@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>學科選擇題測驗</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-teal-900 text-slate-100 min-h-screen flex flex-col justify-center items-center font-sans px-4">
+
+    <a href="../index.html" class="absolute top-5 left-5 bg-teal-800 hover:bg-teal-700 text-sm px-4 py-2 rounded-lg transition shadow">
+        ← 返回應用總覽
+    </a>
+
+    <div class="bg-white text-slate-800 rounded-2xl p-8 max-w-xl w-full shadow-2xl">
+        <div class="flex justify-between items-center mb-6 border-b pb-4">
+            <h1 class="text-2xl font-bold text-teal-600">網頁前端核心測驗</h1>
+            <span id="scoreBoard" class="text-sm font-semibold bg-teal-50 text-teal-700 px-3 py-1 rounded-full">得分：0</span>
+        </div>
+
+        <div id="quiz-container">
+            <h2 id="question" class="text-lg font-medium text-slate-800 mb-6">題目載入中...</h2>
+            
+            <div class="space-y-3" id="options">
+                </div>
+        </div>
+
+        <div id="result-container" class="hidden text-center py-6">
+            <h2 class="text-3xl font-bold text-slate-800 mb-4">測驗結束！</h2>
+            <p id="finalScore" class="text-xl text-teal-600 font-semibold mb-6">你的最終得分是：0 分</p>
+            <button onclick="startQuiz()" class="bg-teal-600 hover:bg-teal-700 text-white font-medium px-6 py-2.5 rounded-xl transition">
+                重新測驗
+            </button>
+        </div>
+    </div>
+
+    <script>
+        // 題庫設定
+        const quizData = [
+            {
+                question: "1. 在網頁技術中，哪一個主要負責網頁的「骨架與結構」？",
+                options: ["CSS", "JavaScript", "HTML5", "SQL"],
+                correct: 2
+            },
+            {
+                question: "2. 想要幫網頁元素加上滑鼠懸停（Hover）特效，通常首選哪種技術？",
+                options: ["CSS", "HTML", "MySQL", "PHP"],
+                correct: 0
+            },
+            {
+                question: "3. 本次期末專題規定最後要將網頁發佈至哪一個靜態網頁託管服務？",
+                options: ["Google Drive", "GitHub Pages", "LINE", "WordPress"],
+                correct: 1
+            }
+        ];
+
+        let currentQuestionIndex = 0;
+        let score = 0;
+
+        function startQuiz() {
+            currentQuestionIndex = 0;
+            score = 0;
+            document.getElementById('scoreBoard').innerText = `得分：${score}`;
+            document.getElementById('quiz-container').classList.remove('hidden');
+            document.getElementById('result-container').classList.add('hidden');
+            loadQuestion();
+        }
+
+        function loadQuestion() {
+            const currentQuiz = quizData[currentQuestionIndex];
+            document.getElementById('question').innerText = currentQuiz.question;
+            
+            const optionsContainer = document.getElementById('options');
+            optionsContainer.innerHTML = '';
+
+            currentQuiz.options.forEach((option, index) => {
+                const button = document.createElement('button');
+                button.innerText = option;
+                button.className = "w-full text-left bg-slate-50 hover:bg-teal-50 border border-slate-200 hover:border-teal-300 rounded-xl px-4 py-3 transition text-slate-700 font-medium";
+                button.onclick = () => selectAnswer(index);
+                optionsContainer.appendChild(button);
+            });
+        }
+
+        function selectAnswer(selectedIndex) {
+            const currentQuiz = quizData[currentQuestionIndex];
+            
+            // 答對就加分 (每題33分，最後一題補到100)
+            if (selectedIndex === currentQuiz.correct) {
+                score += (currentQuestionIndex === quizData.length - 1) ? 34 : 33;
+                document.getElementById('scoreBoard').innerText = `得分：${score}`;
+                alert("🎯 答對了！");
+            } else {
+                alert(`❌ 答錯囉！正確答案是：${currentQuiz.options[currentQuiz.correct]}`);
+            }
+
+            currentQuestionIndex++;
+
+            if (currentQuestionIndex < quizData.length) {
+                loadQuestion();
+            } else {
+                showResult();
+            }
+        }
+
+        function showResult() {
+            document.getElementById('quiz-container').classList.add('hidden');
+            document.getElementById('result-container').classList.remove('hidden');
+            document.getElementById('finalScore').innerText = `你的最終得分是：${score} 分`;
+        }
+
+        // 啟動測驗
+        startQuiz();
+    </script>
+</body>
+</html>

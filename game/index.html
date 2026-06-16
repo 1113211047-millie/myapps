@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>猜數字小遊戲</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-indigo-900 text-slate-100 min-h-screen flex flex-col justify-center items-center font-sans px-4">
+
+    <a href="../index.html" class="absolute top-5 left-5 bg-indigo-800 hover:bg-indigo-700 text-sm px-4 py-2 rounded-lg transition shadow">
+        ← 返回應用總覽
+    </a>
+
+    <div class="bg-white text-slate-800 rounded-2xl p-8 max-w-md w-full shadow-2xl text-center">
+        <h1 class="text-3xl font-bold text-indigo-600 mb-2">猜數字小遊戲</h1>
+        <p class="text-slate-500 text-sm mb-6">請猜一個 1 到 100 之間的數字</p>
+
+        <div id="hint" class="bg-indigo-50 text-indigo-700 font-medium py-3 px-4 rounded-xl mb-6">
+            準備好就可以開始猜囉！
+        </div>
+
+        <div class="flex gap-2 mb-6">
+            <input type="number" id="guessInput" min="1" max="100" placeholder="輸入數字" 
+                   class="flex-1 border-2 border-slate-200 rounded-xl px-4 py-3 text-lg focus:outline-none focus:border-indigo-500 transition text-center">
+            <button onclick="checkGuess()" class="bg-indigo-600 hover:bg-indigo-700 text-white font-medium px-6 py-3 rounded-xl transition">
+                猜！
+            </button>
+        </div>
+
+        <div class="flex justify-between items-center text-sm text-slate-500">
+            <span id="turns">已猜次數：0 次</span>
+            <button onclick="resetGame()" class="text-indigo-600 hover:underline font-medium">重新開始</button>
+        </div>
+    </div>
+
+    <script>
+        let answer, count;
+        
+        function resetGame() {
+            answer = Math.floor(Math.random() * 100) + 1;
+            count = 0;
+            document.getElementById('hint').innerText = "新賽局開始！請輸入 1~100 的數字";
+            document.getElementById('hint').className = "bg-indigo-50 text-indigo-700 font-medium py-3 px-4 rounded-xl mb-6";
+            document.getElementById('turns').innerText = "已猜次數：0 次";
+            document.getElementById('guessInput').value = "";
+        }
+
+        function checkGuess() {
+            const input = document.getElementById('guessInput');
+            const guess = parseInt(input.value);
+            const hintDiv = document.getElementById('hint');
+
+            if (isNaN(guess) || guess < 1 || guess > 100) {
+                alert("請輸入正確的 1 到 100 之間的數字！");
+                return;
+            }
+
+            count++;
+            document.getElementById('turns').innerText = `已猜次數：${count} 次`;
+
+            if (guess === answer) {
+                hintDiv.innerText = `🎉 答對了！答案就是 ${answer}，你一共猜了 ${count} 次！`;
+                hintDiv.className = "bg-emerald-50 text-emerald-700 font-bold py-3 px-4 rounded-xl mb-6";
+            } else if (guess > answer) {
+                hintDiv.innerText = "Too High! 太大了，往小一點猜 👇";
+                hintDiv.className = "bg-rose-50 text-rose-700 font-medium py-3 px-4 rounded-xl mb-6";
+            } else {
+                hintDiv.innerText = "Too Low! 太小了，往大一點猜 👆";
+                hintDiv.className = "bg-amber-50 text-amber-700 font-medium py-3 px-4 rounded-xl mb-6";
+            }
+            input.value = "";
+            input.focus();
+        }
+
+        // 初始化遊戲
+        resetGame();
+    </script>
+</body>
+</html>

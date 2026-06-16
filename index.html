@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>個人專屬 Web Apps 應用總覽入口</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* 完美還原截圖中的微黃綠色漸層背景 */
+        body {
+            background: linear-gradient(135deg, #f3f8e5 0%, #cbdca5 50%, #90b845 100%);
+        }
+    </style>
+</head>
+<body class="min-h-screen py-12 px-4 sm:px-6 lg:px-8">
+
+    <div class="max-w-5xl mx-auto">
+        
+        <header class="bg-white/70 backdrop-blur-md rounded-3xl p-8 mb-8 shadow-sm">
+            <h1 class="text-4xl font-bold text-slate-800 tracking-wide mb-3">
+                [你的名字] 的 MyApps 應用總覽
+            </h1>
+            <p class="text-slate-600 text-base">
+                以下列出所有個人應用，點擊卡片內按鈕即可直接開啟對應的應用入口。
+            </p>
+        </header>
+
+        <main class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+            <div class="bg-white/80 backdrop-blur-sm rounded-2xl p-6 shadow-md hover:shadow-xl hover:-translate-y-2 transition-all duration-300 flex flex-col justify-between">
+                <div>
+                    <h2 class="text-2xl font-bold text-slate-800 mb-3">桌面大時鐘</h2>
+                    <p class="text-slate-600 text-sm leading-relaxed mb-8">
+                        一個簡易復古的網頁大時鐘。具備即時日期與時間顯示功能，適合工作或讀書時開啟作為桌面時鐘。
+                    </p>
+                </div>
+                <a href="./clock/index.html" class="inline-block text-center bg-[#8cb943] hover:bg-[#739b33] text-white font-medium py-2.5 px-4 rounded-xl shadow-sm transition-colors duration-200">
+                    開啟頁面
+                </a>
+            </div>
+
+            <div class="bg-white/80 backdrop-blur-sm rounded-2xl p-6 shadow-md hover:shadow-xl hover:-translate-y-2 transition-all duration-300 flex flex-col justify-between">
+                <div>
+                    <h2 class="text-2xl font-bold text-slate-800 mb-3">猜數字小遊戲</h2>
+                    <p class="text-slate-600 text-sm leading-relaxed mb-8">
+                        經典的網頁猜數字互動遊戲！具備大小提示與歷史猜測紀錄，測試看看你最快幾次可以猜中答案。
+                    </p>
+                </div>
+                <a href="./game/index.html" class="inline-block text-center bg-[#8cb943] hover:bg-[#739b33] text-white font-medium py-2.5 px-4 rounded-xl shadow-sm transition-colors duration-200">
+                    開啟頁面
+                </a>
+            </div>
+
+            <div class="bg-white/80 backdrop-blur-sm rounded-2xl p-6 shadow-md hover:shadow-xl hover:-translate-y-2 transition-all duration-300 flex flex-col justify-between">
+                <div>
+                    <h2 class="text-2xl font-bold text-slate-800 mb-3">學科選擇題測驗</h2>
+                    <p class="text-slate-600 text-sm leading-relaxed mb-8">
+                        提供學科選擇題的互動測驗系統。包含即時對錯反饋、計分功能，是期末複習的數位好幫手。
+                    </p>
+                </div>
+                <a href="./learning/index.html" class="inline-block text-center bg-[#8cb943] hover:bg-[#739b33] text-white font-medium py-2.5 px-4 rounded-xl shadow-sm transition-colors duration-200">
+                    開始測驗
+                </a>
+            </div>
+
+        </main>
+    </div>
+
+</body>
+</html>
